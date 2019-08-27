@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://services.apostil.kz/"  targetNamespace="http://services.apostil.kz/"
+           version="1.0" elementFormDefault='qualified' attributeFormDefault="qualified">
+    <xs:complexType name="GetDictionaryRecords">
+        <xs:sequence>
+            <xs:element name="referenceName" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        Доступные справочники:
+                        document_types - Виды документов
+                        notary_signer_posts - Должности подписывающих
+                        regions - Регионы
+                        countries - Страны
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="document_types"/>
+                        <xs:enumeration value="notary_signer_posts"/>
+                        <xs:enumeration value="regions"/>
+                        <xs:enumeration value="countries"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="language" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        Доступные языки:
+                        kz - Каз.
+                        ru - Рус.
+                        По умолчанию рус.
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="kz"/>
+                        <xs:enumeration value="ru"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="request" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Текст поиска. Мин. длина 3 символа.</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="3"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="GetDictionaryRecordsResponse">
+         <xs:sequence>
+             <xs:element name="record" type="tns:recordInfo" minOccurs="0" maxOccurs="unbounded">
+                 <xs:annotation>
+                     <xs:documentation>Запись справочника</xs:documentation>
+                 </xs:annotation>
+             </xs:element>
+         </xs:sequence>
+
+    </xs:complexType>
+    <xs:complexType name="ApostilleApplication">
+        <xs:sequence>
+            <xs:element name="applicant" type="tns:applicantInfo" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Информация о заявителе</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="document_to_apostille" type="tns:documentToApostilleInfo" minOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Информация о документе на проставление апостиля</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="related_documents_to_apostille" type="tns:attachment" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Иные дополнительные документы, необходимые для проставления апостиля</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="payment" type="tns:paymentInfo" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Уведомление\Чек об оплате государственной пошлины</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ApostilleApplicationResponse">
+        <xs:sequence>
+            <xs:element name="pep_application_id" type="xs:string" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Идентификатор заявки в системе ПЭП</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="spp_application_id" type="xs:string" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Идентификатор заявки в системе СПП Е-Апостиль</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="spp_apostilled_document_id" type="xs:string" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Идентификатор апостилированного документа в системе СПП Е-Апостиль</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="applicant" type="tns:applicantInfo" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Информация о заявителе</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="apostilled_document" type="tns:attachment" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Апостилированный документ</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="apostille_stamp" type="tns:attachment" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Штамп апостиля</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="apostille_code" type="xs:string" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Код безопасности апостиля. 12-и значное число</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="GetConfirmation">
+        <xs:sequence>
+            <xs:element name="spp_apostilled_document_id" type="xs:string" minOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Идентификатор апостилированного документа в системе СПП Е-Апостиль</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="apostille_code" type="xs:string" minOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Код безопасности апостиля. 12-и значное число</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="recordInfo">
+        <xs:sequence>
+            <xs:element minOccurs="1" maxOccurs="1" name="code" type="xs:string"/>
+            <xs:element minOccurs="1" maxOccurs="1" name="name" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="applicantInfo">
+        <xs:sequence>
+            <xs:element minOccurs="1" maxOccurs="1" name="surname" type="xs:string"/>
+            <xs:element minOccurs="1" maxOccurs="1" name="name" type="xs:string"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="patronymic" type="xs:string"/>
+            <xs:element minOccurs="1" maxOccurs="1" name="iin" type="xs:string"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="address" type="xs:string"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="region" type="xs:string"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="document" type="tns:documentInfo"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="phone_number" type="xs:string"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="email" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="documentInfo">
+        <xs:sequence>
+            <xs:element minOccurs="1" maxOccurs="1" name="type" type="xs:string"/>
+            <xs:element minOccurs="1" maxOccurs="1" name="number" type="xs:string"/>
+            <xs:element minOccurs="1" maxOccurs="1" name="date_of_issue" type="xs:date"/>
+            <xs:element minOccurs="1" maxOccurs="1" name="authority" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="documentToApostilleInfo">
+        <xs:sequence>
+            <xs:element minOccurs="1" maxOccurs="1" name="type" type="xs:string"/>
+            <xs:element minOccurs="1" maxOccurs="1" name="date_of_issue" type="xs:date"/>
+            <xs:element minOccurs="1" maxOccurs="1" name="number" type="xs:string"/>
+            <xs:element minOccurs="1" maxOccurs="1" name="authority" type="xs:string"/>
+            <xs:element minOccurs="1" maxOccurs="1" name="authority_region" type="xs:string"/>
+            <xs:element minOccurs="1" maxOccurs="1" name="signer" type="tns:signerInfo"/>
+            <xs:element minOccurs="1" maxOccurs="1" name="country_to_send" type="xs:string"/>
+            <xs:element minOccurs="1" maxOccurs="1" name="file" type="tns:attachment"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="signerInfo">
+        <xs:sequence>
+            <xs:element minOccurs="1" maxOccurs="1" name="surname" type="xs:string"/>
+            <xs:element minOccurs="1" maxOccurs="1" name="name" type="xs:string"/>
+            <xs:element minOccurs="1" maxOccurs="1" name="patronymic" type="xs:string"/>
+            <xs:element minOccurs="1" maxOccurs="1" name="post" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="paymentInfo">
+        <xs:sequence>
+            <xs:element minOccurs="1" maxOccurs="1" name="file" type="tns:attachment"/>
+            <xs:element minOccurs="1" maxOccurs="1" name="number" type="xs:string"/>
+            <xs:element minOccurs="1" maxOccurs="1" name="date" type="xs:date"/>
+            <xs:element minOccurs="1" maxOccurs="1" name="amount" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="attachment">
+        <xs:sequence>
+            <xs:element minOccurs="1" maxOccurs="1" name="name" type="xs:string"/>
+            <xs:element minOccurs="1" maxOccurs="1" name="extension" type="xs:string"/>
+            <xs:element minOccurs="1" maxOccurs="1" name="base64" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

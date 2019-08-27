@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+
+    <parent>
+        <groupId>kz.itig.egov.pep</groupId>
+        <artifactId>egov-pep-service-min-of-justice-apostil</artifactId>
+        <version>1</version>
+    </parent>
+
+
+    <modelVersion>4.0.0</modelVersion>
+
+
+<!--    <groupId>kz.itig.egov.pep</groupId>-->
+    <artifactId>egov-pep-service-min-of-jutice-apostil-impl</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+
+
+
+    <dependencies>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>egov-pep-service-min-of-jutice-apostil-api</artifactId>
+            <version>1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>kz.inessoft.egov.pep</groupId>
+            <artifactId>egov-pep-service-shep-api</artifactId>
+
+        </dependency>
+        <dependency>
+            <groupId>kz.inessoft.egov.pep</groupId>
+            <artifactId>egov-pep-service-shep-impl</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>kz.inessoft.egov.pep</groupId>
+            <artifactId>egov-pep-common-configuration</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.enterprise</groupId>
+            <artifactId>cdi-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.reflections</groupId>
+            <artifactId>reflections</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jaxb2-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>generate-apostil-service-data</id>
+                        <goals>
+                            <goal>xjc</goal>
+                        </goals>
+                        <configuration>
+                            <schemaDirectory>${basedir}/src/main/resources/META-INF/xsd/</schemaDirectory>
+                            <packageName>services.apostil.kz</packageName>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+
+
+
+    
+</project>

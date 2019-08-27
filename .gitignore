@@ -1,0 +1,15 @@
+# Created by https://www.gitignore.io/api/intellij
+
+### Intellij ###
+# Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and Webstorm
+# Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
+
+# User-specific stuff:
+.idea/*
+target/*
+webapp/target/*
+*.iml
+
+egov-pep-service-min-of-juitce-apostil-api/target/*
+egov-pep-service-min-of-juitce-apostil-impl/target/*
+egov-pep-service-min-of-juitce-apostil-web/target/*
